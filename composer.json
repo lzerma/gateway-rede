@@ -1,0 +1,15 @@
+{
+    "name": "lzerma/rede_gateway",
+    "description": "Gateway de pagamento com a plataforma Rede.",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "rede",
+        "gateway",
+        "ecommerce",
+        "php"
+    ],
+    "homepage": "http://lucaszerma.com/",
+    "require": {
+        "php": ">=5.4",
+    }
+}
