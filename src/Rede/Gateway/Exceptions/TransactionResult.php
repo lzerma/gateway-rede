@@ -8,19 +8,19 @@ use \Exception as Exception;
  * @see https://github.com/lzerma/gateway_rede
  *
  */
-class Card extends Exception {
+class TransactionResult extends Exception {
 
 	/**
 	 * 
 	 * @var String
 	 */
-	public static $INCORRECT_METHOD = 1;
+	public static $IS_NOT_VALID_OBJECT = 1;
 	
 	/**
-	 * 
-	 * @var unknown
+	 *
+	 * @var String
 	 */
-	public static $INCORRECT_CARD_TYPE = 2;
+	public static $RESULT_NOT_MAPPED = 2;
 	
 	/**
 	 * 

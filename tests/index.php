@@ -9,6 +9,7 @@ use Rede\Gateway\Request;
 use Rede\Gateway\Gateway;
 use Rede\Gateway\Client\Curl;
 require_once("bootstrap.php");
+
 $request = new Request();
 $auth = new Authetication();
 $card = new Card();
@@ -18,11 +19,10 @@ $auth->setAcquirerCode("049058967");
 $auth->setPassword("TgHFE25T");
 
 // Dados do cartao
-$card->setCardPan("5448280000000007");
+$card->setCardPan("5440000000007");
 $card->setCardExpiryDate("01/15");
 $card->setCvc(123);
 $card->setCardMethod(CardTypes::$CARD_TXN_METHOD_AUTH);
-$card->setCardSchema(CardTypes::$MASTERCARD);
 $card->setCardType(CardTypes::$CARD_CREDIT);
 $card->setCountry("Brazil");
 
@@ -36,8 +36,12 @@ $request->setAuth($auth);
 $request->setTransaction($transaction);
 
 $payment = new Gateway($request, new Curl());
+$a = $payment->send();
+print("<pre>");print_r($a->getTransactionResult());die();
+
+
+
 header("Content-type: text/xml");
-print_r($payment->send());
 // $client = new Client();
 // $client->add($gateway->authenticate($auth));
 // $ret = $client->send();

@@ -107,8 +107,4 @@ class Curl implements Client {
 	public function setResponse($_response) {
 		$this->_response = $_response;
 	}
-
-
-
-	
 }
