@@ -136,6 +136,9 @@ class Transaction implements Model {
 	 * @param number $_amount
 	 */
 	public function setAmount($_amount) {
+		if($_amount < 0) {
+			throw new TransactionException("The amount of transaction cannot be negative value.", TransactionException::$AMOUNT_ERROR);
+		}
 		$this->_amount = $_amount;
 	}
 	/**

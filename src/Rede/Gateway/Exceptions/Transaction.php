@@ -36,6 +36,12 @@ class Transaction extends Exception {
 	
 	/**
 	 * 
+	 * @var Errors in amount property
+	 */
+	public static $AMOUNT_ERROR = 5;
+	
+	/**
+	 * 
 	 * @param unknown $messase
 	 * @param unknown $code
 	 */
