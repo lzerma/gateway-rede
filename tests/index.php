@@ -34,11 +34,11 @@ $boleto->setBillingStret1("Rua Sem Nome, s/ numero");
 $boleto->setExpiryDate('2013-05-01');
 $boleto->setCustomerEmail("lzerma@gmail.com");
 $boleto->setCustomerIp($_SERVER["REMOTE_ADDR"]);
-$boleto->setInstructions("N�o receber ap�s o vencimento.");
+$boleto->setInstructions("Não receber após o vencimento.");
 $boleto->setProcessorId(\Rede\Gateway\Types\Boleto::$PROCESSOR_BANCOBRASIL);
 
 // Dados da transacao
-$transaction = new Transaction($boleto);
+$transaction = new Transaction($card);
 $transaction->setAmount(1000);
 $transaction->setMerchantreference(uniqid("ymo_"));
 $transaction->setInstalments(5);
@@ -50,8 +50,8 @@ $request->setTransaction($transaction);
 
 $payment = new Gateway($request, new Curl());
 $result = $payment->send();
-$result = $result->getTransactionDetailsResult()
-print("<pre>");print_r();die();
+$result = $result->getTransactionDetailsResult();
+print("<pre>");print_r($result);die();
 
 
 

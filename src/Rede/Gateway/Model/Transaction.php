@@ -156,7 +156,7 @@ class Transaction implements Model {
 					</Instalments>";
 		}
 		
-		return $this->_instalments;
+		return $xml;
 	}
 
 	/**
