@@ -1,5 +1,7 @@
 <?php namespace Rede\Gateway\Model;
 use Rede\Gateway\Interfaces\Model;
+use Rede\Gateway\Types\Transaction as TransactionTypes;
+use Rede\Gateway\Exceptions\Transaction as TransactionException;
 /**
  * 
  * @author Lucas Zerma - <lzerma@gmail.com>
@@ -15,6 +17,12 @@ class Transaction implements Model {
 	 * @var Card
 	 */
 	private $_card = null;
+	
+	/**
+	 * 
+	 * @var Boleto
+	 */
+	private $_boleto = null;
 
 	/**
 	 * 
@@ -30,14 +38,34 @@ class Transaction implements Model {
 	
 	/**
 	 * 
+	 * @var Integer
 	 */
-	public function __construct($card) {
-		$this->setCard($card);
-	}
+	private $_instalments;
+	
+	/**
+	 *
+	 * @var String
+	 */
+	private $_instalments_type;
 	
 	/**
 	 * 
-	 * @return string
+	 */
+	public function __construct(Model $txn) {
+		if($txn instanceof Card) {
+			$this->setCard($txn);
+		}
+		elseif($txn instanceof Boleto) {
+			$this->setBoleto($txn);
+		}
+		else {
+			throw new TransactionException("The param must be a valid model interface, got: ".get_class($txn), TransactionException::$PARAM_NOT_VALID);
+		}
+	}
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see \Rede\Gateway\Interfaces\Model::getXml()
 	 */
 	public function getXml() {
 		$xml = "<Transaction>
@@ -46,9 +74,26 @@ class Transaction implements Model {
 						<capturemethod>ecomm</capturemethod>
 						<amount currency='BRL'>{$this->getAmount()}</amount>
 					</TxnDetails>
-					{$this->getCard()->getXml()}
+					{$this->_getBody()}
+					{$this->getInstalments()}
 				</Transaction>";
 		return $xml;  
+	}
+	
+	/**
+	 * 
+	 * @throws TransactionException
+	 * @return string
+	 */
+	private function _getBody() {
+		if($this->getCard() instanceof Card) {
+			return $this->getCard()->getXml();
+		}
+		
+		if($this->getBoleto() instanceof Boleto) {
+			return $this->getBoleto()->getXml();
+		}
+		throw new TransactionException("The transaction need a valid Model.", TransactionException::$MALFORMED_BODY);
 	}
 	
 	/**
@@ -93,5 +138,66 @@ class Transaction implements Model {
 	public function setAmount($_amount) {
 		$this->_amount = $_amount;
 	}
+	/**
+	 * @return the $_instalments
+	 */
+	public function getInstalments() {
+		
+		if($this->_instalments > 0) {
+			if(is_null($this->getInstalments_type())) {
+				throw new TransactionException("Interest Bearing not informed.", TransactionException::$NOT_INFORMED_BEARING);
+			}
+			$xml = "<Instalments>
+						<type>{$this->getInstalments_type()}</type>
+						<number>{$this->_instalments}</number>
+					</Instalments>";
+		}
+		
+		return $this->_instalments;
+	}
+
+	/**
+	 * @param number $_instalments
+	 */
+	public function setInstalments($_instalments) {
+		$this->_instalments = $_instalments;
+	}
+	/**
+	 * @return the $_instalments_type
+	 */
+	public function getInstalments_type() {
+		return $this->_instalments_type;
+	}
+
+	/**
+	 * @param string $_instalments_type
+	 */
+	public function setInstalments_type($_instalments_type) {
+		switch ($_instalments_type) {
+			case TransactionTypes::$INTEREST_BEARING:
+			case TransactionTypes::$ZERO_INTEREST:
+				$this->_instalments_type = $_instalments_type;
+				break;
+			default:
+				throw new TransactionException("Unknown bearing interest, please verify informed value. Got: {$_instalments_type}.", TransactionException::$UNKNOWN_BEARING);
+			break;
+		}
+	}
+	/**
+	 * @return the $_boleto
+	 */
+	public function getBoleto() {
+		return $this->_boleto;
+	}
+
+	/**
+	 * @param \Rede\Gateway\Model\Boleto $_boleto
+	 */
+	public function setBoleto($_boleto) {
+		$this->_boleto = $_boleto;
+	}
+
+
+
 
 }

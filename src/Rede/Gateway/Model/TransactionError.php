@@ -26,6 +26,12 @@ class TransactionError implements TransactionResultInterface {
 	
 	/**
 	 * 
+	 * @var unknown
+	 */
+	private $information;
+	
+	/**
+	 * 
 	 * @param SimpleXMLElement $result
 	 */
 	public function __construct(SimpleXMLElement $result) {
@@ -43,6 +49,8 @@ class TransactionError implements TransactionResultInterface {
 	private function parse($result) {
 		$transactionDetailsResult = new TransactionDetailsResult($result);
 		$this->setTransactionDetailsResult($transactionDetailsResult);
+// 		print("<pre>");print_r($result);die();
+		$this->setInformation($result->information);
 	}
 
 	/**
@@ -79,6 +87,20 @@ class TransactionError implements TransactionResultInterface {
 	public function setTransactionDetailsResult($transactionDetailsResult) {
 		$this->transactionDetailsResult = $transactionDetailsResult;
 	}
+	/**
+	 * @return the $information
+	 */
+	public function getInformation() {
+		return $this->information;
+	}
+
+	/**
+	 * @param \Rede\Gateway\Model\unknown $information
+	 */
+	public function setInformation($information) {
+		$this->information = (string) $information;
+	}
+
 
 
 }

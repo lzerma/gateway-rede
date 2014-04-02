@@ -1,6 +1,5 @@
 <?php namespace Rede\Gateway\Model;
 use Rede\Gateway\Types\Card as CardTypes;
-use Rede\Gateway\Exceptions\Card as CardException;
 
 /**
  * 
@@ -56,7 +55,9 @@ class CardResult {
 		$this->setCardType($result->Card->card_account_type);
 		$this->setAuthCode($result->CardTxn->authcode);
 		$this->setCardScheme($result->CardTxn->card_scheme);
-		$this->setCv2Status($result->CardTxn->Cv2Avs->cv2avs_status);
+		if(isset($result->CardTxn)) {
+			$this->setCv2Status($result->CardTxn->Cv2Avs->cv2avs_status);
+		}
 		$this->setCountry($result->CardTxn->country);
 		$this->setIssuer($result->CardTxn->issuer);
 	}
@@ -107,14 +108,7 @@ class CardResult {
 	 * @param \Rede\Gateway\Types\Card $cardType
 	 */
 	public function setCardType($cardType) {
-		switch ($cardType) {
-			case CardTypes::$CARD_CREDIT:
-			case CardTypes::$CARD_DEBIT:
-				$this->cardType = (string) $cardType;
-				return $this;
-				break;
-		}
-		throw new CardException("Invalid type card, please verify.", CardException::$INCORRECT_CARD_TYPE);
+		$this->cardType = (string) $cardType;
 	}
 
 	/**

@@ -8,25 +8,13 @@ use \Exception as Exception;
  * @see https://github.com/lzerma/gateway_rede
  *
  */
-class TransactionResult extends Exception {
+class Boleto extends Exception {
 
 	/**
 	 * 
-	 * @var String
+	 * @var Unknown processor bank
 	 */
-	public static $IS_NOT_VALID_OBJECT = 1;
-	
-	/**
-	 *
-	 * @var String
-	 */
-	public static $RESULT_NOT_MAPPED = 2;
-
-	/**
-	 * 
-	 * @var For general errors
-	 */
-	public static $RESULT_ERROR = 3;
+	public static $UNKNOWN_PROCESSOR = 1;
 	
 	/**
 	 * 

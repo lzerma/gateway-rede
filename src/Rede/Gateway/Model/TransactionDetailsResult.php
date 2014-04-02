@@ -1,5 +1,6 @@
 <?php namespace Rede\Gateway\Model;
 
+use Rede\Gateway\Exceptions\TransactionResult;
 /**
  * 
  * @author Lucas Zerma - <lzerma@gmail.com>
@@ -78,21 +79,33 @@ class TransactionDetailsResult {
 	
 	/**
 	 * 
+	 * @var BoletoResult
+	 */
+	private $boletoResult;
+	
+	/**
+	 * 
 	 * @param SimpleXMLElement $result
 	 */
 	public function __construct($result) {
 		
-		$this->setAuthHostReference($result->auth_host_reference);
-		$this->setCardResult(new CardResult($result));
 		$this->setGatewayReference($result->gateway_reference);
-		$this->setExtendedResponseMessage($result->extended_response_message);
-		$this->setExtendedStatus($result->extended_status);
-		$this->setMerchantReference($result->merchantreference);
-		$this->setMid($result->mid);
 		$this->setMode($result->mode);
 		$this->setReason($result->reason);
 		$this->setStatus($result->status);
 		$this->setTime($result->time);
+		$this->setAuthHostReference($result->auth_host_reference);
+		$this->setExtendedResponseMessage($result->extended_response_message);
+		$this->setExtendedStatus($result->extended_status);
+		$this->setMerchantReference($result->merchantreference);
+		$this->setMid($result->mid);
+		
+		if(isset($result->BoletoTxn)) {
+			$this->setBoletoResult(new BoletoResult($result->BoletoTxn));
+		}
+		elseif(isset($result->CardTxn)) {
+			$this->setCardResult(new CardResult($result));
+		}
 	}
 	
 	/**
@@ -249,5 +262,19 @@ class TransactionDetailsResult {
 	public function setCardResult($cardResult) {
 		$this->cardResult = $cardResult;
 	}
+	/**
+	 * @return the $boletoResult
+	 */
+	public function getBoletoResult() {
+		return $this->boletoResult;
+	}
+
+	/**
+	 * @param \Rede\Gateway\Model\BoletoResult $boletoResult
+	 */
+	public function setBoletoResult($boletoResult) {
+		$this->boletoResult = $boletoResult;
+	}
+
 
 }

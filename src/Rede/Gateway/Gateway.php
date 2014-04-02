@@ -107,16 +107,17 @@ class Gateway {
 	
 	public function setTransactionResult($result) {
 		$objResult = simplexml_load_string($result);
-		
 		switch ($objResult->status) {
 			case 1:
 				$this->transactionResult = new TransactionSuccess($objResult);
 				break;
 			case 25:
+			case 21:
+			case 13:
 				$this->transactionResult = new TransactionError($objResult);
 				break;
 			default:
-				throw new TransactionResultException("Result is not mapped.", TransactionResultException::$RESULT_NOT_MAPPED);
+				throw new TransactionResultException("Result is not mapped. Code: {$objResult->status}", TransactionResultException::$RESULT_NOT_MAPPED);
 		}
 		return $this;
 	}

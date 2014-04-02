@@ -8,25 +8,31 @@ use \Exception as Exception;
  * @see https://github.com/lzerma/gateway_rede
  *
  */
-class TransactionResult extends Exception {
+class Transaction extends Exception {
 
 	/**
 	 * 
-	 * @var String
+	 * @var Unknown Bearing Type
 	 */
-	public static $IS_NOT_VALID_OBJECT = 1;
+	public static $UNKNOWN_BEARING = 1;
 	
 	/**
-	 *
-	 * @var String
+	 * 
+	 * @var Bearing not informed
 	 */
-	public static $RESULT_NOT_MAPPED = 2;
-
+	public static $NOT_INFORMED_BEARING = 2;
+	
 	/**
 	 * 
-	 * @var For general errors
+	 * @var The parameter is not valid
 	 */
-	public static $RESULT_ERROR = 3;
+	public static $PARAM_NOT_VALID = 3;
+	
+	/**
+	 * 
+	 * @var Body of request is malformed.
+	 */
+	public static $MALFORMED_BODY = 4;
 	
 	/**
 	 * 
