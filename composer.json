@@ -10,8 +10,7 @@
     ],
     "homepage": "http://lucaszerma.com/",
     "require": {
-        "php": ">=5.4",
-        "ext-curl": ">=7"
+        "php": ">=5.4"
     },
     "autoload": {
         "psr-0": {
