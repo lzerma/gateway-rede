@@ -1,6 +1,7 @@
 {
     "name": "lzerma/rede-gateway",
     "description": "Gateway de pagamento com a plataforma Rede.",
+    "author": "Lucas Zerma",
     "license": "BSD-3-Clause",
     "keywords": [
         "rede",
