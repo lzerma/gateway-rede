@@ -264,7 +264,8 @@ class TransactionDetailsResult {
 	}
 	
 	/**
-	 * @return the $boletoResult
+	 * 
+	 * @return \Rede\Gateway\Model\BoletoResult
 	 */
 	public function getBoletoResult() {
 		return $this->boletoResult;

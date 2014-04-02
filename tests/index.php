@@ -50,8 +50,8 @@ $request->setTransaction($transaction);
 
 $payment = new Gateway($request, new Curl());
 $result = $payment->send();
-
-print("<pre>");print_r($result->getTransactionDetailsResult());die();
+$result = $result->getTransactionDetailsResult()
+print("<pre>");print_r();die();
 
 
 
