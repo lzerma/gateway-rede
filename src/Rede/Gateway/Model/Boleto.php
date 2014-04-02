@@ -40,8 +40,9 @@ class Boleto implements Model {
 	public function getXml() {
 		$xml = "
 				<BoletoTxn>
-					<instructions>{$this->getInstructions()}</instructions>
+					<instructions>{$this->getInstructions(true)}</instructions>
 					<expiry_date>{$this->getExpiryDate()}</expiry_date>
+					<method>payment</method>
 					<first_name>{$this->getFirstName()}</first_name>
 					<last_name>{$this->getLastName()}</last_name>
 					<customer_ip>{$this->getCustomerIp()}</customer_ip>
@@ -56,8 +57,13 @@ class Boleto implements Model {
 	/**
 	 * @return the $_instructions
 	 */
-	public function getInstructions() {
-		return $this->_instructions;
+	public function getInstructions($utf8) {
+		if($utf8) {
+			return utf8_encode($this->_instructions);
+		}
+		else {
+			return $this->_instructions;
+		}
 	}
 
 	/**
