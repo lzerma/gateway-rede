@@ -1,4 +1,5 @@
 <?php namespace Rede\Gateway\Interfaces;
+use Rede\Gateway\Model\TransactionDetailsResult;
 /**
  * 
  * @author Lucas Zerma - <lzerma@gmail.com>
@@ -10,8 +11,12 @@
 interface TransactionResult {
 	
 	/**
-	 * 
-	 * @return \Rede\Gateway\Model\TransactionResult;
+	 * @return TransactionDetailsResult
 	 */
-	public function getResult();
+	public function getTransactionDetailsResult();
+	
+	/**
+	 * @return string
+	 */
+	public function getInformation();
 }

@@ -1,6 +1,5 @@
 <?php namespace Rede\Gateway\Model;
-use Rede\Gateway\Transaction\TransactionResult;
-use Rede\Gateway\Interfaces\TransactionResult as TransactionResultInterface;
+use Rede\Gateway\Interfaces\TransactionResult;
 use \SimpleXMLElement as SimpleXMLElement;
 /**
  * 
@@ -10,17 +9,11 @@ use \SimpleXMLElement as SimpleXMLElement;
  * @see https://github.com/lzerma/gateway_rede
  *
  */
-class TransactionSuccess implements TransactionResultInterface {
-	
+class TransactionSuccess implements TransactionResult {
+
 	/**
 	 * 
-	 * @var CardResult
-	 */
-	private $cardResult; 
-	
-	/**
-	 * 
-	 * @var unknown
+	 * @var TransactionDetailsResult
 	 */
 	private $transactionDetailsResult;
 	
@@ -34,51 +27,34 @@ class TransactionSuccess implements TransactionResultInterface {
 	
 	/**
 	 * 
-	 * @return \Rede\Gateway\Model\TransactionResult;
+	 * @param SimpleXMLElement $result
 	 */
-	public function getResult() {
-		return $this->result;
-	}
-	
 	private function parse($result) {
 		$transactionDetailsResult = new TransactionDetailsResult($result);
 		$this->setTransactionDetailsResult($transactionDetailsResult);
 	}
 
 	/**
-	 * @param \Rede\Gateway\Model\TransactionResult; $result
-	 */
-	public function setResult($result) {
-		$this->result = $result;
-	}
-
-	/**
-	 * 
-	 * @return \Rede\Gateway\Model\CardResult
-	 */
-	public function getCardResult() {
-		return $this->cardResult;
-	}
-
-	/**
-	 * @param \Rede\Gateway\Model\CardResult $cardResult
-	 */
-	public function setCardResult($cardResult) {
-		$this->cardResult = $cardResult;
-	}
-	/**
-	 * @return the $transactionDetailsResult
+	 * (non-PHPdoc)
+	 * @see \Rede\Gateway\Interfaces\TransactionResult::getTransactionDetailsResult()
 	 */
 	public function getTransactionDetailsResult() {
 		return $this->transactionDetailsResult;
 	}
 
 	/**
-	 * @param \Rede\Gateway\Model\unknown $transactionDetailsResult
+	 * 
+	 * @param TransactionDetailsResult $transactionDetailsResult
 	 */
-	public function setTransactionDetailsResult($transactionDetailsResult) {
+	private function setTransactionDetailsResult(TransactionDetailsResult $transactionDetailsResult) {
 		$this->transactionDetailsResult = $transactionDetailsResult;
 	}
-
-
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see \Rede\Gateway\Interfaces\TransactionResult::getInformation()
+	 */
+	public function getInformation() {
+		return $this->information;
+	}
 }

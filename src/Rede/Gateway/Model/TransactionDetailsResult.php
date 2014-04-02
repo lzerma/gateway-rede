@@ -189,79 +189,80 @@ class TransactionDetailsResult {
 	/**
 	 * @param \Rede\Gateway\Model\unknown $authHostReference
 	 */
-	public function setAuthHostReference($authHostReference) {
+	private function setAuthHostReference($authHostReference) {
 		$this->authHostReference = (string) $authHostReference;
 	}
 
 	/**
 	 * @param \Rede\Gateway\Model\unknown $gatewayReference
 	 */
-	public function setGatewayReference($gatewayReference) {
+	private function setGatewayReference($gatewayReference) {
 		$this->gatewayReference = (string) $gatewayReference;
 	}
 
 	/**
 	 * @param \Rede\Gateway\Model\unknown $extendedResponseMessage
 	 */
-	public function setExtendedResponseMessage($extendedResponseMessage) {
+	private function setExtendedResponseMessage($extendedResponseMessage) {
 		$this->extendedResponseMessage = (string) $extendedResponseMessage;
 	}
 
 	/**
 	 * @param \Rede\Gateway\Model\unknown $extendedStatus
 	 */
-	public function setExtendedStatus($extendedStatus) {
+	private function setExtendedStatus($extendedStatus) {
 		$this->extendedStatus = (string) $extendedStatus;
 	}
 
 	/**
 	 * @param \Rede\Gateway\Model\unknown $merchantReference
 	 */
-	public function setMerchantReference($merchantReference) {
+	private function setMerchantReference($merchantReference) {
 		$this->merchantReference = (string) $merchantReference;
 	}
 
 	/**
 	 * @param \Rede\Gateway\Model\unknown $mid
 	 */
-	public function setMid($mid) {
+	private function setMid($mid) {
 		$this->mid = (string) $mid;
 	}
 
 	/**
 	 * @param \Rede\Gateway\Model\unknown $mode
 	 */
-	public function setMode($mode) {
+	private function setMode($mode) {
 		$this->mode = (string) $mode;
 	}
 
 	/**
 	 * @param \Rede\Gateway\Model\unknown $reason
 	 */
-	public function setReason($reason) {
+	private function setReason($reason) {
 		$this->reason = (string) $reason;
 	}
 
 	/**
 	 * @param \Rede\Gateway\Model\unknown $status
 	 */
-	public function setStatus($status) {
+	private function setStatus($status) {
 		$this->status = (string) $status;
 	}
 
 	/**
 	 * @param \Rede\Gateway\Model\unknown $time
 	 */
-	public function setTime($time) {
+	private function setTime($time) {
 		$this->time = (int) $time;
 	}
 
 	/**
 	 * @param \Rede\Gateway\Model\CardResult $card
 	 */
-	public function setCardResult($cardResult) {
+	private function setCardResult($cardResult) {
 		$this->cardResult = $cardResult;
 	}
+	
 	/**
 	 * @return the $boletoResult
 	 */
@@ -272,7 +273,7 @@ class TransactionDetailsResult {
 	/**
 	 * @param \Rede\Gateway\Model\BoletoResult $boletoResult
 	 */
-	public function setBoletoResult($boletoResult) {
+	private function setBoletoResult($boletoResult) {
 		$this->boletoResult = $boletoResult;
 	}
 

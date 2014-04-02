@@ -36,8 +36,7 @@ class Gateway {
 	private $xml_string;
 	
 	/**
-	 * 
-	 * @var TransactionResult
+	 * @return Ambigous <TransactionSuccess, TransactionError>
 	 */
 	private $transactionResult;
 	
@@ -52,6 +51,7 @@ class Gateway {
 	
 	/**
 	 * 
+	 * @return \Rede\Gateway\TransactionResult
 	 */
 	public function send() {
 		$this->xml_string = "<Request version='2'>";
@@ -61,8 +61,7 @@ class Gateway {
 		$this->getClient()->add($this->xml_string);
 		$this->getClient()->send();
 		$this->setTransactionResult($this->getClient()->getResponse());
-		
-		return $this;
+		return $this->getTransactionResult();
 	}
 	
 	/**
@@ -97,14 +96,21 @@ class Gateway {
 	public function setClient($_client) {
 		$this->_client = $_client;
 	}
+	
 	/**
-	 * @return the $transactionResult
+	 * 
+	 * @return Ambigous <\Rede\Gateway\Model\TransactionSuccess, \Rede\Gateway\Model\TransactionError>
 	 */
 	public function getTransactionResult() {
 		return $this->transactionResult;
 	}
 
-	
+	/**
+	 * 
+	 * @param unknown $result
+	 * @throws TransactionResultException
+	 * @return \Rede\Gateway\Gateway
+	 */
 	public function setTransactionResult($result) {
 		$objResult = simplexml_load_string($result);
 		switch ($objResult->status) {
@@ -121,5 +127,4 @@ class Gateway {
 		}
 		return $this;
 	}
-	
 }
