@@ -108,7 +108,6 @@ class Gateway {
 	/**
 	 * 
 	 * @param unknown $result
-	 * @throws TransactionResultException
 	 * @return \Rede\Gateway\Gateway
 	 */
 	public function setTransactionResult($result) {
@@ -117,13 +116,9 @@ class Gateway {
 			case 1:
 				$this->transactionResult = new TransactionSuccess($objResult);
 				break;
-			case 25:
-			case 21:
-			case 13:
+			default:
 				$this->transactionResult = new TransactionError($objResult);
 				break;
-			default:
-				throw new TransactionResultException("Result is not mapped. Code: {$objResult->status}", TransactionResultException::$RESULT_NOT_MAPPED);
 		}
 		return $this;
 	}
