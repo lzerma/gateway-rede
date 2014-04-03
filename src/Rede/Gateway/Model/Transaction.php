@@ -73,9 +73,9 @@ class Transaction implements Model {
 						<merchantreference>{$this->getMerchantreference()}</merchantreference>
 						<capturemethod>ecomm</capturemethod>
 						<amount currency='BRL'>{$this->getAmount()}</amount>
+						{$this->getInstalments()}
 					</TxnDetails>
 					{$this->_getBody()}
-					{$this->getInstalments()}
 				</Transaction>";
 		return $xml;  
 	}
