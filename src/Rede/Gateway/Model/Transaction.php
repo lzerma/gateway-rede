@@ -145,7 +145,7 @@ class Transaction implements Model {
 	 * @return the $_instalments
 	 */
 	public function getInstalments() {
-		
+		$xml = "";
 		if($this->_instalments > 0) {
 			if(is_null($this->getInstalments_type())) {
 				throw new TransactionException("Interest Bearing not informed.", TransactionException::$NOT_INFORMED_BEARING);
