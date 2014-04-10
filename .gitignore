@@ -4,3 +4,7 @@
 .buildpath
 .project
 ._~*
+.TemporaryItems
+_.*
+._.*
+._*

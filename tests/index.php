@@ -9,6 +9,10 @@ use Rede\Gateway\Request;
 use Rede\Gateway\Gateway;
 use Rede\Gateway\Client\Curl;
 use Rede\Gateway\Model\Boleto;
+use Rede\Gateway\Model\HistoricTxn;
+use Rede\Gateway\Types\HistoricTxn as HistoricTxnTypes;
+use Rede\Gateway\Model\TxnDetails;
+use Rede\Gateway\Types\Instalments;
 require_once("bootstrap.php");
 $request = new Request();
 $auth = new Authetication();
@@ -37,15 +41,27 @@ $boleto->setCustomerIp($_SERVER["REMOTE_ADDR"]);
 $boleto->setInstructions("Não receber após o vencimento.");
 $boleto->setProcessorId(\Rede\Gateway\Types\Boleto::$PROCESSOR_BANCOBRASIL);
 
+// Dados historicos
+$historic = new HistoricTxn();
+$historic->setReference("3600900010040953");
+$historic->setMethod(HistoricTxnTypes::$METHOD_QUERY);
+
+// Detalhes da transacao
+$details = new TxnDetails();
+$details->setAmount(1000);
+$details->setMerchantreference(uniqid("ymo_"));
+$details->setInstalments(5);
+$details->setInstalments_type(Instalments::$ZERO_INTEREST);
+
+// print("<pre>");print_r($historic->getXml());die();
+// die("AE");
 // Dados da transacao
 $transaction = new Transaction($card);
-// $transaction->setRecurring(\Rede\Gateway\Types\Transaction::$RECURRING_SETUP);
-$transaction->setHistoricReference("3000900010043313");
-$transaction->setRecurring(\Rede\Gateway\Types\Transaction::$RECURRING_HISTORIC);
-$transaction->setAmount(1000);
-$transaction->setMerchantreference(uniqid("ymo_"));
-$transaction->setInstalments(5);
-$transaction->setInstalments_type(\Rede\Gateway\Types\Transaction::$ZERO_INTEREST);
+$transaction->setTxnDetails($details);
+$transaction->setHistoricTxn($historic);
+// $transaction->setType(\Rede\Gateway\Types\Transaction::$RECURRING_SETUP);
+$transaction->setType(\Rede\Gateway\Types\Transaction::$HISTORIC_QUERY);
+// $transaction->setType(\Rede\Gateway\Types\Transaction::$RECURRING_HISTORIC);
 
 // Dados da requisicao
 $request->setAuth($auth);

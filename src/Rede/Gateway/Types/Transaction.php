@@ -11,18 +11,6 @@ class Transaction {
 	
 	/**
 	 * 
-	 * @var String - Without card tax 
-	 */
-	public static $ZERO_INTEREST = "zero_interest";
-	
-	/**
-	 * 
-	 * @var String - With card tax
-	 */
-	public static $INTEREST_BEARING = "interest_bearing";
-	
-	/**
-	 * 
 	 * @var String - Set setup for recurring transaction
 	 */
 	public static $RECURRING_SETUP = "setup";
@@ -32,4 +20,10 @@ class Transaction {
 	 * @var String - Set historic transaction for recurring
 	 */
 	public static $RECURRING_HISTORIC = "historic";
+	
+	/**
+	 * 
+	 * @var String - Transaction for consult.
+	 */
+	public static $HISTORIC_QUERY = "historic_query";
 }
