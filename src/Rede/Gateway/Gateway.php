@@ -58,6 +58,7 @@ class Gateway {
 		$this->xml_string .= $this->getRequest()->getAuth()->getXml();
 		$this->xml_string .= $this->getRequest()->getTransaction()->getXml();
 		$this->xml_string .= "</Request>";
+		
 		$this->getClient()->add($this->xml_string);
 		$this->getClient()->send();
 		$this->setTransactionResult($this->getClient()->getResponse());

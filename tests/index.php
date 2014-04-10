@@ -20,7 +20,7 @@ $auth->setAcquirerCode("049058967");
 $auth->setPassword("TgHFE25T");
 
 // Dados do cartao
-$card->setCardPan("5448280000000007");
+$card->setCardPan("6062825624254001");
 $card->setCardExpiryDate("01/15");
 $card->setCvc(123);
 $card->setCardMethod(CardTypes::$CARD_TXN_METHOD_AUTH);
@@ -39,6 +39,9 @@ $boleto->setProcessorId(\Rede\Gateway\Types\Boleto::$PROCESSOR_BANCOBRASIL);
 
 // Dados da transacao
 $transaction = new Transaction($card);
+// $transaction->setRecurring(\Rede\Gateway\Types\Transaction::$RECURRING_SETUP);
+$transaction->setHistoricReference("3000900010043313");
+$transaction->setRecurring(\Rede\Gateway\Types\Transaction::$RECURRING_HISTORIC);
 $transaction->setAmount(1000);
 $transaction->setMerchantreference(uniqid("ymo_"));
 $transaction->setInstalments(5);

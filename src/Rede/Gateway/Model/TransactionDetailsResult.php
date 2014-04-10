@@ -85,6 +85,12 @@ class TransactionDetailsResult {
 	
 	/**
 	 * 
+	 * @var ContAuthTxn
+	 */
+	private $contAuthTxn;
+	
+	/**
+	 * 
 	 * @param SimpleXMLElement $result
 	 */
 	public function __construct($result) {
@@ -105,6 +111,10 @@ class TransactionDetailsResult {
 		}
 		elseif(isset($result->CardTxn)) {
 			$this->setCardResult(new CardResult($result));
+		}
+		
+		if(isset($result->ContAuthTxn)) {
+			$this->setContAuthTxn(new ContAuthTxn($result));
 		}
 	}
 	
@@ -250,16 +260,18 @@ class TransactionDetailsResult {
 	}
 
 	/**
-	 * @param \Rede\Gateway\Model\unknown $time
+	 * 
+	 * @param string $time
 	 */
 	private function setTime($time) {
 		$this->time = (int) $time;
 	}
 
 	/**
-	 * @param \Rede\Gateway\Model\CardResult $card
+	 * 
+	 * @param CardResult $cardResult
 	 */
-	private function setCardResult($cardResult) {
+	private function setCardResult(CardResult $cardResult) {
 		$this->cardResult = $cardResult;
 	}
 	
@@ -272,11 +284,29 @@ class TransactionDetailsResult {
 	}
 
 	/**
-	 * @param \Rede\Gateway\Model\BoletoResult $boletoResult
+	 * 
+	 * @param BoletoResult $boletoResult
 	 */
-	private function setBoletoResult($boletoResult) {
+	private function setBoletoResult(BoletoResult $boletoResult) {
 		$this->boletoResult = $boletoResult;
 	}
+	
+	/**
+	 * 
+	 * @return \Rede\Gateway\Model\ContAuthTxn
+	 */
+	public function getContAuthTxn() {
+		return $this->contAuthTxn;
+	}
+
+	/**
+	 * 
+	 * @param ContAuthTxn $contAuthTxn
+	 */
+	private function setContAuthTxn(ContAuthTxn $contAuthTxn) {
+		$this->contAuthTxn = $contAuthTxn;
+	}
+
 
 
 }

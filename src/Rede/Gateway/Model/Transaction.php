@@ -50,6 +50,26 @@ class Transaction implements Model {
 	
 	/**
 	 * 
+	 * @var String
+	 */
+	private $_recurring;
+	
+	/**
+	 * 
+	 * @var String
+	 */
+	private $_historicReference;
+	
+	/**
+	 * 
+	 * @var String
+	 */
+	private $_captureMethod = "ecomm";
+	
+	/**
+	 * 
+	 * @param Model $txn
+	 * @throws TransactionException
 	 */
 	public function __construct(Model $txn) {
 		if($txn instanceof Card) {
@@ -68,15 +88,16 @@ class Transaction implements Model {
 	 * @see \Rede\Gateway\Interfaces\Model::getXml()
 	 */
 	public function getXml() {
-		$xml = "<Transaction>
-					<TxnDetails>
-						<merchantreference>{$this->getMerchantreference()}</merchantreference>
-						<capturemethod>ecomm</capturemethod>
-						<amount currency='BRL'>{$this->getAmount()}</amount>
-						{$this->getInstalments()}
-					</TxnDetails>
-					{$this->_getBody()}
-				</Transaction>";
+		$xml = "<Transaction>";
+		$xml .= $this->_getBody();
+		$xml .="<TxnDetails>
+					<merchantreference>{$this->getMerchantreference()}</merchantreference>
+					<capturemethod>{$this->_captureMethod}</capturemethod>
+					<amount currency='BRL'>{$this->getAmount()}</amount>
+					{$this->getInstalments()}
+				</TxnDetails>";
+
+		$xml .= "</Transaction>";
 		return $xml;  
 	}
 	
@@ -86,14 +107,33 @@ class Transaction implements Model {
 	 * @return string
 	 */
 	private function _getBody() {
+
+		$ret = "";
 		if($this->getCard() instanceof Card) {
-			return $this->getCard()->getXml();
+			$ret = $this->getCard()->getXml();
 		}
 		
 		if($this->getBoleto() instanceof Boleto) {
-			return $this->getBoleto()->getXml();
+			$ret = $this->getBoleto()->getXml();
 		}
-		throw new TransactionException("The transaction need a valid Model.", TransactionException::$MALFORMED_BODY);
+		
+		switch($this->getRecurring()) {
+			case TransactionTypes::$RECURRING_SETUP:
+				$ret .= "<ContAuthTxn type='{$this->_recurring}'/>";
+				break;
+			case TransactionTypes::$RECURRING_HISTORIC:
+				$xml = "<ContAuthTxn type='{$this->_recurring}'/>
+						<HistoricTxn>
+							<reference>{$this->getHistoricReference()}</reference>
+							<method>auth</method>
+						</HistoricTxn>";
+					$this->_captureMethod = "cont_auth";
+				return $xml;
+				break;
+		}
+
+		return $ret;
+// 		throw new TransactionException("The transaction need a valid Model.", TransactionException::$MALFORMED_BODY);
 	}
 	
 	/**
@@ -146,7 +186,7 @@ class Transaction implements Model {
 	 */
 	public function getInstalments() {
 		$xml = "";
-		if($this->_instalments > 0) {
+		if($this->_instalments > 0 && $this->_captureMethod != 'cont_auth') {
 			if(is_null($this->getInstalments_type())) {
 				throw new TransactionException("Interest Bearing not informed.", TransactionException::$NOT_INFORMED_BEARING);
 			}
@@ -198,6 +238,46 @@ class Transaction implements Model {
 	 */
 	public function setBoleto($_boleto) {
 		$this->_boleto = $_boleto;
+	}
+	/**
+	 * @return the $_recurring
+	 */
+	public function getRecurring() {
+		return $this->_recurring;
+	}
+
+	/**
+	 * Define a setup transaction for a recurring transaction (Historic Payment - Controlled by merchant) 
+	 * @param \Rede\Gateway\Model\unknown $_recurring
+	 */
+	public function setRecurring($_recurring) {
+		switch ($_recurring) {
+			case TransactionTypes::$RECURRING_SETUP:
+			case TransactionTypes::$RECURRING_HISTORIC:
+				$this->_recurring = $_recurring;
+				break;
+			default:
+				throw new TransactionException("Type for recurring transaction unknown. Got: {$_recurring}");
+				break;
+		}
+	}
+	/**
+	 * @return the $_historicReference
+	 */
+	public function getHistoricReference() {
+		
+		if(is_null($this->_historicReference)) {
+			throw new TransactionException("For recurring transaction, the reference number is required. Please, verify if you set the historical reference before call this method.");
+		}
+		
+		return $this->_historicReference;
+	}
+
+	/**
+	 * @param string $_historicReference
+	 */
+	public function setHistoricReference($_historicReference) {
+		$this->_historicReference = $_historicReference;
 	}
 
 
