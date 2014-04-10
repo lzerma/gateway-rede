@@ -58,8 +58,6 @@ class Gateway {
 		$this->xml_string .= $this->getRequest()->getAuth()->getXml();
 		$this->xml_string .= $this->getRequest()->getTransaction()->getXml();
 		$this->xml_string .= "</Request>";
-// 		header("Content-type: text/xml");
-// 		die($this->xml_string);
 		$this->getClient()->add($this->xml_string);
 		$this->getClient()->send();
 		$this->setTransactionResult($this->getClient()->getResponse());
@@ -114,7 +112,6 @@ class Gateway {
 	 */
 	public function setTransactionResult($result) {
 		$objResult = simplexml_load_string($result);
-		print("<pre>");print_r($objResult);die();
 		switch ($objResult->status) {
 			case 1:
 				$this->transactionResult = new TransactionSuccess($objResult);
