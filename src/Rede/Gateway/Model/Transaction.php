@@ -105,15 +105,17 @@ class Transaction implements Model {
 			case TransactionTypes::$RECURRING_SETUP:
 				$ret .= "<ContAuthTxn type='setup'/>";
 			default:
-				if($this->getTxnDetails())
-					$ret .= $this->getTxnDetails()->getXml();
 				
 				if($this->getCard() instanceof Card) {
 					$ret .= $this->getCard()->getXml();
 				}
 				else if($this->getBoleto() instanceof Boleto) {
+					$this->getTxnDetails()->setInstalments(null);
 					$ret .= $this->getBoleto()->getXml();
 				}
+				
+				if($this->getTxnDetails())
+					$ret .= $this->getTxnDetails()->getXml();
 				break; 
 		}
 		return $ret;

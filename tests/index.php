@@ -59,8 +59,8 @@ $details->setInstalments_type(Instalments::$ZERO_INTEREST);
 $transaction = new Transaction($card);
 $transaction->setTxnDetails($details);
 $transaction->setHistoricTxn($historic);
-// $transaction->setType(\Rede\Gateway\Types\Transaction::$RECURRING_SETUP);
-$transaction->setType(\Rede\Gateway\Types\Transaction::$HISTORIC_QUERY);
+$transaction->setType(\Rede\Gateway\Types\Transaction::$RECURRING_SETUP);
+// $transaction->setType(\Rede\Gateway\Types\Transaction::$HISTORIC_QUERY);
 // $transaction->setType(\Rede\Gateway\Types\Transaction::$RECURRING_HISTORIC);
 
 // Dados da requisicao
