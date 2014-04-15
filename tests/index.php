@@ -56,10 +56,10 @@ $details->setInstalments_type(Instalments::$ZERO_INTEREST);
 // print("<pre>");print_r($historic->getXml());die();
 // die("AE");
 // Dados da transacao
-$transaction = new Transaction($card);
+$transaction = new Transaction($boleto);
 $transaction->setTxnDetails($details);
-$transaction->setHistoricTxn($historic);
-$transaction->setType(\Rede\Gateway\Types\Transaction::$RECURRING_SETUP);
+// $transaction->setHistoricTxn($historic);
+// $transaction->setType(\Rede\Gateway\Types\Transaction::$RECURRING_SETUP);
 // $transaction->setType(\Rede\Gateway\Types\Transaction::$HISTORIC_QUERY);
 // $transaction->setType(\Rede\Gateway\Types\Transaction::$RECURRING_HISTORIC);
 
