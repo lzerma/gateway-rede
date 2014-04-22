@@ -20,7 +20,7 @@ class Curl implements Client {
 	 * 
 	 * @var String
 	 */
-	private $_endpoint = "https://scommerce.userede.com.br/Beta/wsTransaction";
+	private $_endpoint;
 	
 	/**
 	 * 
@@ -31,7 +31,14 @@ class Curl implements Client {
 	/**
 	 * 
 	 */
-	public function __construct() {
+	public function __construct($production = false) {
+		if($production) {
+			$this->setEndpoint(\Rede\Gateway\Types\Client::$PRODUCTION_URI);
+		}
+		else {
+			$this->setEndpoint(\Rede\Gateway\Types\Client::$DEVELOP_URI);
+		}
+		
 		$this->init();
 	}
 	
