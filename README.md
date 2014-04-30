@@ -6,7 +6,7 @@ This module provides a interface for communication with the payment gateway E-Re
 
 For use this library, you need a install, by using [GitHub](http://git@github.com:lzerma/gateway-rede.git) or use composer.
 
-For use composer, edit your *composer.json* and add line above:
+For use composer, edit your *composer.json* and add line below:
 
 > "lzerma/rede-gateway": "stable"
 
@@ -19,15 +19,38 @@ $auth = new Authetication();
 $auth->setAcquirerCode("1212121");
 $auth->setPassword("###");
 ```
-In this case, I creating a new object with the *acquirer code (providing by E-Rede)* and the *password (provinding by E-Rede)*.
+In this case, I creating a new object with the ***acquirer code*** *(providing by E-Rede)* and the ***password*** *(provinding by E-Rede)*.
 
 ***Card data Object***
 ```
-// Dados do cartao
+// Card object
+$card = new Card()
+
 $card->setCardPan("0101010101010101");
 $card->setCardExpiryDate("01/15");
 $card->setCvc(123);
-$card->setCardMethod(CardTypes::$CARD_TXN_METHOD_AUTH); // In the CartTypes class, exists others methods for configure this object.
-$card->setCardType(CardTypes::$CARD_CREDIT); // Set card operation
-$card->setCountry("Brazil"); // Country of transaction
+
+// In the CartTypes class, exists others methods for configure this object.
+$card->setCardMethod(CardTypes::$CARD_TXN_METHOD_AUTH); 
+
+// Set card type operation (Credit ou Debit)
+$card->setCardType(CardTypes::$CARD_CREDIT); 
+
+// Country of transaction
+$card->setCountry("Brazil"); 
+```
+This lines above create a new card object with a many information, like a number of card, expiration date of card, security code of card, etc. 
+You can find in a list of all parameters [here](#).
+
+***Boleto data Object***
+```
+// Boleto object
+$boleto->setFirstName("Lucas");
+$boleto->setLastName("Zerma");
+$boleto->setBillingStret1("Rua Sem Nome, s/ numero");
+$boleto->setExpiryDate('2013-05-01');
+$boleto->setCustomerEmail("lzerma@gmail.com");
+$boleto->setCustomerIp($_SERVER["REMOTE_ADDR"]);
+$boleto->setInstructions("Não receber após o vencimento.");
+$boleto->setProcessorId(\Rede\Gateway\Types\Boleto::$PROCESSOR_BANCOBRASIL);
 ```
