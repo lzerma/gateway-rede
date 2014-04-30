@@ -55,5 +55,6 @@ $boleto->setInstructions("Não receber após o vencimento.");
 $boleto->setProcessorId(\Rede\Gateway\Types\Boleto::$PROCESSOR_BANCOBRASIL);
 ```
 This lines configure one object with all information about the boleto request for sending to gateway e-rede. 
+
 *ps: This properties listed above is only required properties and the list of all the properties you find [here](#)* 
 
