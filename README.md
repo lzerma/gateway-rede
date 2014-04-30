@@ -47,13 +47,15 @@ For use boleto in your integration, you must need write the lines below:
 // Boleto object
 $boleto->setFirstName("Lucas");
 $boleto->setLastName("Zerma");
-$boleto->setBillingStret1("Rua Sem Nome, s/ numero");
+$boleto->setBillingStret1("No name street, n/a number");
 $boleto->setExpiryDate('2013-05-01');
-$boleto->setCustomerEmail("lzerma@gmail.com");
-$boleto->setCustomerIp($_SERVER["REMOTE_ADDR"]);
-$boleto->setInstructions("Não receber após o vencimento.");
+$boleto->setCustomerEmail("lzerma[at]gmail[dot]com");
+$boleto->setCustomerIp(192.168.1.1);
+$boleto->setInstructions("Few instructions for the bank employer.");
+// Here you can set which processor bank you work. A list of all you find on the respective class. 
 $boleto->setProcessorId(\Rede\Gateway\Types\Boleto::$PROCESSOR_BANCOBRASIL);
 ```
+
 This lines configure one object with all information about the boleto request for sending to gateway e-rede. 
 
 *ps: This properties listed above is only required properties and the list of all the properties you find [here](#)* 
