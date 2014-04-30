@@ -6,6 +6,11 @@
             "name": "Lucas Zerma",
             "email": "lzerma@gmail.com",
             "homepage": "http://www.lucaszerma.com"
+        },
+        {
+            "name": "Rafael Moriya",
+            "email": "rm.moriya@gmail.com",
+            "homepage": "http://www.rafaelmoriya.com.br"
         }
 	],
     "license": "BSD-3-Clause",

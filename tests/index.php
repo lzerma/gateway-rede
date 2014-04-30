@@ -15,11 +15,11 @@ use Rede\Gateway\Model\TxnDetails;
 use Rede\Gateway\Types\Instalments;
 require_once("bootstrap.php");
 $request = new Request();
-$auth = new Authetication();
 $card = new Card();
 $boleto = new Boleto();
 
-// Autenticacao
+// Auth
+$auth = new Authetication();
 $auth->setAcquirerCode("049058967");
 $auth->setPassword("TgHFE25T");
 
