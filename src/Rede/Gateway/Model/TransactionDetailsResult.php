@@ -112,6 +112,11 @@ class TransactionDetailsResult {
 		elseif(isset($result->CardTxn)) {
 			$this->setCardResult(new CardResult($result));
 		}
+		elseif(isset($result->QueryTxnResult)) {
+			if(isset($result->QueryTxnResult->BoletoTxn)) {
+				$this->setBoletoResult(new BoletoResult($result->QueryTxnResult->BoletoTxn));
+			}
+		}
 		
 		if(isset($result->ContAuthTxn)) {
 			$this->setContAuthTxn(new ContAuthTxn($result));
