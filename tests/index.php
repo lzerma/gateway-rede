@@ -20,8 +20,8 @@ $boleto = new Boleto();
 
 // Auth
 $auth = new Authetication();
-$auth->setAcquirerCode("049058967");
-$auth->setPassword("TgHFE25T");
+$auth->setAcquirerCode("XXXXXXXX");
+$auth->setPassword("XXXXXX");
 
 // Dados do cartao
 $card->setCardPan("6062825624254001");
