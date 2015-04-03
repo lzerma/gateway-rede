@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/lzerma/gateway-rede.svg?branch=master)](https://travis-ci.org/lzerma/gateway-rede)
+[![Code Climate](https://codeclimate.com/repos/551ddcdf6956806c3e001310/badges/3c2580533948af5efdcc/gpa.svg)](https://codeclimate.com/repos/551ddcdf6956806c3e001310/feed)
 
 Payment Gateway - E-Rede
 ============
