@@ -84,21 +84,24 @@ class TxnDetails implements Model {
 	public function setMerchantreference($_merchantreference) {
 		$this->_merchantreference = $_merchantreference;
 	}
-	
-	/**
-	 * @param number $_amount
-	 */
-	public function setAmount($_amount) {
+
+    /**
+     * @param $_amount
+     *
+     * @throws \Rede\Gateway\Exceptions\Transaction
+     */
+    public function setAmount($_amount) {
 		if($_amount < 0) {
 			throw new TransactionException("The amount of transaction cannot be negative value.", TransactionException::$AMOUNT_ERROR);
 		}
 		$this->_amount = $_amount;
 	}
-	
-	/**
-	 * @return the $_instalments
-	 */
-	public function getInstalments() {
+
+    /**
+     * @return string
+     * @throws \Rede\Gateway\Exceptions\Transaction
+     */
+    public function getInstalments() {
 		$xml = "";
 		if($this->_instalments > 0 && $this->_captureMethod != 'cont_auth') {
 			if(is_null($this->getInstalments_type())) {
@@ -126,11 +129,13 @@ class TxnDetails implements Model {
 	public function getInstalments_type() {
 		return $this->_instalments_type;
 	}
-	
-	/**
-	 * @param string $_instalments_type
-	 */
-	public function setInstalments_type($_instalments_type) {
+
+    /**
+     * @param $_instalments_type
+     *
+     * @throws \Rede\Gateway\Exceptions\Transaction
+     */
+    public function setInstalments_type($_instalments_type) {
 		switch ($_instalments_type) {
 			case Instalments::$INTEREST_BEARING:
 			case Instalments::$ZERO_INTEREST:

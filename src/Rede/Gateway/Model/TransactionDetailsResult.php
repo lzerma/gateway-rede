@@ -1,6 +1,5 @@
 <?php namespace Rede\Gateway\Model;
 
-use Rede\Gateway\Exceptions\TransactionResult;
 /**
  * 
  * @author Lucas Zerma - <lzerma@gmail.com>
@@ -11,57 +10,52 @@ use Rede\Gateway\Exceptions\TransactionResult;
  */
 class TransactionDetailsResult {
 
-	/**
-	 * 
-	 * @var Transaction reference number attributed by the acquirer. It is the NSU.
-	 */
-	private $authHostReference;
+    /**
+     * @var string
+     */
+    private $authHostReference;
+
+    /**
+     * @var string
+     */
+    private $gatewayReference;
+
+    /**
+     * @var string
+     */
+    private $extendedResponseMessage;
+
+    /**
+     * @var string
+     */
+    private $extendedStatus;
+
+    /**
+     * @var string
+     */
+    private $merchantReference;
 	
 	/**
 	 * 
-	 * @var Reference ERede use for historical transaction, the uuid on gateway. 
-	 */
-	private $gatewayReference;
-	
-	/**
-	 * 
-	 * @var unknown
-	 */
-	private $extendedResponseMessage;
-	
-	/**
-	 * 
-	 * @var unknown
-	 */
-	private $extendedStatus;
-	
-	/**
-	 * 
-	 * @var unknown
-	 */
-	private $merchantReference;
-	
-	/**
-	 * 
-	 * @var unknown
+	 * @var string
 	 */
 	private $mid;
 	
 	/**
 	 * 
-	 * @var unknown
+	 * @var string
 	 */
 	private $mode;
 	
 	/**
 	 * 
-	 * @var unknown
+	 * @var string
 	 */
 	private $reason;
 	
 	/**
 	 * 
-	 * @var unknown
+	 * @var string
 	 */
 	private $status;
 	

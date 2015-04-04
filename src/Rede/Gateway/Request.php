@@ -1,8 +1,6 @@
 <?php
 namespace Rede\Gateway;
 use Rede\Gateway\Model\Authetication;
-use Rede\Gateway\Model\Card;
-use Rede\Gateway\Client\Client;
 use Rede\Gateway\Model\Transaction;
 /**
  * 

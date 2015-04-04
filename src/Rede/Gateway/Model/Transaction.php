@@ -3,7 +3,6 @@ use Rede\Gateway\Interfaces\Model;
 use Rede\Gateway\Types\Transaction as TransactionTypes;
 use Rede\Gateway\Types\TxnDetails as TxnDetailsTypes;
 use Rede\Gateway\Exceptions\Transaction as TransactionException;
-use Rede\Gateway\Model\TxnDetails;
 
 /**
  * 
@@ -152,12 +151,15 @@ class Transaction implements Model {
 	public function setBoleto(Boleto $_boleto) {
 		$this->_boleto = $_boleto;
 	}
-	
-	/**
-	 * Define a setup transaction for a recurring transaction (Historic Payment - Controlled by merchant) 
-	 * @param \Rede\Gateway\Model\unknown $_recurring
-	 */
-	public function setRecurring($_recurring) {
+
+    /**
+     * Define a setup transaction for a recurring transaction (Historic Payment - Controlled by merchant)
+     *
+     * @param $_recurring
+     *
+     * @throws \Rede\Gateway\Exceptions\Transaction
+     */
+    public function setRecurring($_recurring) {
 		switch ($_recurring) {
 			case TransactionTypes::$RECURRING_SETUP:
 			case TransactionTypes::$RECURRING_HISTORIC:
@@ -214,7 +216,5 @@ class Transaction implements Model {
 	public function setType($_type) {
 		$this->_type = $_type;
 	}
-
-
 
 }

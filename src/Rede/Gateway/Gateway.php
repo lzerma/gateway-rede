@@ -1,10 +1,7 @@
 <?php
 namespace Rede\Gateway;
-use Rede\Gateway\Model\Authetication;
-use Rede\Gateway\Model\Card;
 use Rede\Gateway\Interfaces\Client;
-use Rede\Gateway\Model\Transaction;
-use Rede\Gateway\Exceptions\TransactionResult as TransactionResultException; 
+use Rede\Gateway\Interfaces\TransactionResult;
 use Rede\Gateway\Model\TransactionSuccess;
 use Rede\Gateway\Model\TransactionError;
 /**
@@ -36,7 +33,7 @@ class Gateway {
 	private $xml_string;
 	
 	/**
-	 * @return Ambigous <TransactionSuccess, TransactionError>
+	 * @return <TransactionSuccess, TransactionError>
 	 */
 	private $transactionResult;
 	
@@ -51,7 +48,7 @@ class Gateway {
 	
 	/**
 	 * 
-	 * @return \Rede\Gateway\TransactionResult
+	 * @return TransactionResult
 	 */
 	public function send() {
 		$this->xml_string = "<Request version='2'>";
@@ -74,12 +71,12 @@ class Gateway {
 		return $this->_request;
 	}
 
-	/**
-	 * 
-	 * @param unknown $_request
-	 * @return \Rede\Gateway\Gateway
-	 */
-	public function setRequest(Request $_request) {
+    /**
+     * @param Request $_request
+     *
+     * @return $this
+     */
+    public function setRequest(Request $_request) {
 		$this->_request = $_request;
 		return $this;
 	}
@@ -92,10 +89,10 @@ class Gateway {
 		return $this->_client;
 	}
 
-	/**
-	 * @param \Rede\Gateway\Client\Client $_client
-	 */
-	public function setClient($_client) {
+    /**
+     * @param $_client
+     */
+    public function setClient($_client) {
 		$this->_client = $_client;
 	}
 	

@@ -1,5 +1,4 @@
 <?php namespace Rede\Gateway\Model;
-use Rede\Gateway\Types\Card as CardTypes;
 
 /**
  * 
@@ -145,6 +144,4 @@ class CardResult {
 	public function setIssuer($issuer) {
 		$this->issuer = (string) $issuer;
 	}
-
-
 }
