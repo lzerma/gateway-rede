@@ -45,12 +45,11 @@ class CardResult {
 	 * @var String
 	 */
 	private $issuer;
-	
-	/**
-	 * 
-	 * @param SimpleXMLElement $result
-	 */
-	public function __construct($result) {
+
+    /**
+     * @param \SimpleXMLElement $result
+     */
+    public function __construct(\SimpleXMLElement $result) {
 		$this->setCardType($result->Card->card_account_type);
 		$this->setAuthCode($result->CardTxn->authcode);
 		$this->setCardScheme($result->CardTxn->card_scheme);

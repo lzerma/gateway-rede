@@ -67,5 +67,4 @@ class Authetication implements Model {
 	public function setPassword($Password) {
 		$this->Password = $Password;
 	}
-
 }

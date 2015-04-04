@@ -36,12 +36,12 @@ class Gateway {
 	 * @return <TransactionSuccess, TransactionError>
 	 */
 	private $transactionResult;
-	
-	/**
-	 * 
-	 * @param Request $request
-	 */
-	public function __construct(Request $_request, Client $_client) {
+
+    /**
+     * @param Request $_request
+     * @param Client  $_client
+     */
+    public function __construct(Request $_request, Client $_client) {
 		$this->setRequest($_request);
 		$this->setClient($_client);
 	}
@@ -55,8 +55,6 @@ class Gateway {
 		$this->xml_string .= $this->getRequest()->getAuth()->getXml();
 		$this->xml_string .= $this->getRequest()->getTransaction()->getXml();
 		$this->xml_string .= "</Request>";
-// 		header("Content-type: text/xml");
-// 		die($this->xml_string);
 		$this->getClient()->add($this->xml_string);
 		$this->getClient()->send();
 		$this->setTransactionResult($this->getClient()->getResponse());
